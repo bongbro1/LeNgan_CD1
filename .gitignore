@@ -1,0 +1,73 @@
+# =========================
+# Node modules
+# =========================
+node_modules/
+nlp_training/
+
+# =========================
+# Logs
+# =========================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Build folders
+# =========================
+dist/
+build/
+coverage/
+
+# =========================
+# React
+# =========================
+.frontend-cache/
+.cache/
+.parcel-cache/
+
+# =========================
+# Vite
+# =========================
+vite.svg
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
+
+# =========================
+# Runtime data
+# =========================
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Optional package manager files
+# =========================
+.pnpm-store/
+.yarn/

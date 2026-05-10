@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-inverse-on-surface: #f3f0f1;
+  --color-secondary: #505f76;
+  --color-tertiary-fixed-dim: #dcc2a4;
+  --color-on-primary: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-inverse-surface: #303031;
+  --color-surface-container-highest: #e5e2e3;
+  --color-error-container: #ffdad6;
+  --color-surface-container-high: #eae7e9;
+  --color-on-secondary-fixed-variant: #38485d;
+  --color-on-tertiary-fixed: #261906;
+  --color-secondary-container: #d0e1fb;
+  --color-on-secondary-container: #54647a;
+  --color-outline-variant: #c6c6cd;
+  --color-tertiary-container: #261906;
+  --color-surface-container-low: #f6f3f4;
+  --color-on-primary-fixed-variant: #404758;
+  --color-surface-tint: #575e70;
+  --color-on-primary-fixed: #141b2b;
+  --color-background: #fcf8fa;
+  --color-surface: #fcf8fa;
+  --color-on-background: #1b1b1d;
+  --color-on-primary-container: #7d8497;
+  --color-on-surface-variant: #45464c;
+  --color-secondary-fixed: #d3e4fe;
+  --color-primary-fixed-dim: #c0c6db;
+  --color-on-tertiary-fixed-variant: #55442d;
+  --color-on-tertiary-container: #968065;
+  --color-on-secondary-fixed: #0b1c30;
+  --color-tertiary-fixed: #f9debf;
+  --color-secondary-fixed-dim: #b7c8e1;
+  --color-surface-variant: #e5e2e3;
+  --color-surface-bright: #fcf8fa;
+  --color-error: #ba1a1a;
+  --color-surface-container-lowest: #ffffff;
+  --color-primary-fixed: #dce2f7;
+  --color-inverse-primary: #c0c6db;
+  --color-primary: #000000;
+  --color-tertiary: #000000;
+  --color-on-tertiary: #ffffff;
+  --color-surface-container: #f0edee;
+  --color-on-error: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-surface: #1b1b1d;
+  --color-primary-container: #141b2b;
+  --color-surface-dim: #dcd9db;
+  --color-outline: #76777d;
+
+  /* Spacing */
+  --spacing-margin-page: 32px;
+  --spacing-stack-md: 16px;
+  --spacing-unit: 4px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 1440px;
+  --spacing-stack-sm: 8px;
+  --spacing-card-padding: 24px;
+  --spacing-stack-lg: 32px;
+
+  /* Font Sizes */
+  --font-size-h1: 30px;
+  --font-size-h1--line-height: 38px;
+  --font-size-h2: 24px;
+  --font-size-h2--line-height: 32px;
+  --font-size-h3: 20px;
+  --font-size-h3--line-height: 28px;
+  --font-size-body-lg: 16px;
+  --font-size-body-lg--line-height: 24px;
+  --font-size-body-md: 14px;
+  --font-size-body-md--line-height: 20px;
+  --font-size-label-sm: 12px;
+  --font-size-label-sm--line-height: 16px;
+  --font-size-data-mono: 14px;
+  --font-size-data-mono--line-height: 20px;
+
+  /* Fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-bold;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+    @apply select-none inline-block;
+    font-family: 'Material Symbols Outlined';
+  }
+
+  .font-data-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Custom Scrollbar for Minimalist UI */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-surface-container-highest);
+  border-radius: 9999px;
+}
