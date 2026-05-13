@@ -1,8 +1,8 @@
 flask
 flask-cors
-python-dotenv
 playwright
 transformers
 torch
-scipy
 flask-sqlalchemy
+pyvi
+requests

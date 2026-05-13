@@ -41,7 +41,20 @@ const AIInsights: React.FC = () => {
 
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Lưu messages vào localStorage mỗi khi có thay đổi
   useEffect(() => {
@@ -81,7 +94,7 @@ const AIInsights: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await chatService.sendMessage(text);
+      const response = await chatService.sendMessage(text, messages);
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
@@ -105,6 +118,29 @@ const AIInsights: React.FC = () => {
     }
   };
 
+  const handleDeleteHistory = async () => {
+    if (!window.confirm("Bạn có chắc chắn muốn xóa toàn bộ lịch sử trò chuyện? Hành động này không thể hoàn tác.")) return;
+
+    try {
+      await chatService.deleteChatHistory();
+      
+      // Reset local state
+      const initialMessage: Message = {
+        id: '1',
+        type: 'bot',
+        content: 'Chào mừng bạn trở lại! Tôi đã cập nhật dữ liệu từ các đánh giá mới nhất trên Shopee và Lazada. Bạn muốn khám phá điều gì hôm nay?',
+        timestamp: new Date()
+      };
+      
+      setMessages([initialMessage]);
+      localStorage.removeItem('ai_chat_history');
+      setShowMenu(false);
+    } catch (error) {
+      console.error("Delete history error:", error);
+      alert("Không thể xóa lịch sử. Vui lòng thử lại sau.");
+    }
+  };
+
   const topIssue = data?.top_issues && data.top_issues.length > 0 ? data.top_issues[0] : null;
 
   return (
@@ -125,9 +161,34 @@ const AIInsights: React.FC = () => {
                   <p className="text-[10px] text-[#505f76] font-bold uppercase tracking-wider">Analysis Engine Active</p>
                 </div>
               </div>
-              <button className="text-[#505f76] hover:text-black transition-colors">
-                <span className="material-symbols-outlined text-[20px]">more_vert</span>
-              </button>
+              <div className="relative" ref={menuRef}>
+                <button 
+                  onClick={() => setShowMenu(!showMenu)}
+                  className="text-[#505f76] hover:text-black transition-colors p-1 hover:bg-black/5 rounded-full"
+                >
+                  <span className="material-symbols-outlined text-[20px]">more_vert</span>
+                </button>
+                
+                {showMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white/80 backdrop-blur-md border border-[#e2e2e8] rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] z-50 py-2 animate-in fade-in zoom-in-95 duration-200 origin-top-right ring-1 ring-black/5">
+                    <div className="px-4 py-2 border-b border-[#f1f1f4] mb-1">
+                      <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest">Tùy chọn trợ lý</p>
+                    </div>
+                    <button 
+                      onClick={handleDeleteHistory}
+                      className="w-[calc(100%-16px)] mx-2 text-left px-3 py-2.5 text-[13px] text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-3 transition-all duration-200 group"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+                        <span className="material-symbols-outlined text-[18px] text-red-500">delete_sweep</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="font-bold">Xóa lịch sử chat</span>
+                        <span className="text-[10px] text-red-400 font-medium">Xóa vĩnh viễn log JSON</span>
+                      </div>
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Chat History */}

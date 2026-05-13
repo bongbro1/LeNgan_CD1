@@ -63,8 +63,12 @@ export const analyzeService = {
 };
 
 export const chatService = {
-  sendMessage: async (message: string): Promise<ChatResponse> => {
-    const response = await api.post('/chat', { message });
+  sendMessage: async (message: string, history: any[] = []): Promise<ChatResponse> => {
+    const response = await api.post('/chat', { message, history });
+    return response.data;
+  },
+  deleteChatHistory: async (): Promise<any> => {
+    const response = await api.delete('/chat/history');
     return response.data;
   },
 };
