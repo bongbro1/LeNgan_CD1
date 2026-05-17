@@ -41,7 +41,7 @@ const StatCard: React.FC<StatCardProps> = ({ label, value, icon: Icon, trend, co
             </div>
           )}
         </div>
-        <div className={clsx("p-3 rounded-xl", colorClasses[color])}>
+        <div className={clsx("p-3 rounded-lg", colorClasses[color])}>
           <Icon className="w-5 h-5" />
         </div>
       </div>

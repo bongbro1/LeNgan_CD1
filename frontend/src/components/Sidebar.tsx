@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false }) => {
             key={item.id}
             to={item.path}
             className={({ isActive }) => clsx(
-              "w-full flex items-center px-4 py-3 rounded-lg transition-all duration-200",
+              "w-full flex items-center px-4 py-3 rounded-md transition-all duration-200",
               isActive
                 ? "text-black font-bold border-r-4 border-black bg-[#f6f3f4]"
                 : "text-[#505f76] font-medium hover:bg-[#f6f3f4]"
@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false }) => {
       </nav>
 
       <div className="px-4 mt-auto">
-        <div className="p-4 bg-[#f6f3f4] rounded-xl border border-[#c6c6cd] flex items-center">
+        <div className="p-4 bg-[#f6f3f4] rounded-lg border border-[#c6c6cd] flex items-center">
           <img
             alt="User Profile"
             className="w-10 h-10 rounded-full mr-3 border border-[#c6c6cd]"

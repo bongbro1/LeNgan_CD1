@@ -33,8 +33,8 @@ const Settings: React.FC = () => {
           <p className="text-[#505f76] text-[16px] mt-1">Cấu hình tham số mô hình, bộ thu thập dữ liệu và kết nối cơ sở dữ liệu.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-6 py-2.5 border border-[#c6c6cd] rounded-xl font-black text-[13px] text-[#505f76] hover:bg-[#f6f3f4] transition-all">Hủy bỏ</button>
-          <button className="px-6 py-2.5 bg-black text-white rounded-xl font-black text-[13px] shadow-lg hover:opacity-90 active:scale-95 transition-all">Lưu cấu hình</button>
+          <button className="px-6 py-2.5 border border-[#c6c6cd] rounded-lg font-black text-[13px] text-[#505f76] hover:bg-[#f6f3f4] transition-all">Hủy bỏ</button>
+          <button className="px-6 py-2.5 bg-black text-white rounded-lg font-black text-[13px] shadow-lg hover:opacity-90 active:scale-95 transition-all">Lưu cấu hình</button>
         </div>
       </div>
 
@@ -44,7 +44,7 @@ const Settings: React.FC = () => {
         {/* Left Column: API & Database Status */}
         <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
           {/* API Status Section */}
-          <div className="bg-white border border-[#c6c6cd] rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg p-6 shadow-sm">
             <div className="flex items-end justify-between mb-6">
               <h3 className="text-[20px] font-bold text-[#1b1b1d] leading-none">API Status</h3>
               <div className="flex items-center gap-3">
@@ -83,7 +83,7 @@ const Settings: React.FC = () => {
                 <button
                   onClick={checkConnection}
                   disabled={apiStatus === 'checking'}
-                  className="w-full py-3 bg-black text-white rounded-lg font-bold text-[14px] hover:opacity-90 active:scale-[0.98] transition-all shadow-md disabled:opacity-50"
+                  className="w-full py-3 bg-black text-white rounded-md font-bold text-[14px] hover:opacity-90 active:scale-[0.98] transition-all shadow-md disabled:opacity-50"
                 >
                   {apiStatus === 'checking' ? 'Đang kiểm tra...' : 'Làm mới kết nối'}
                 </button>
@@ -92,7 +92,7 @@ const Settings: React.FC = () => {
           </div>
 
           {/* Database Status */}
-          <div className="bg-white border border-[#c6c6cd] rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg p-6 shadow-sm">
             <h3 className="text-[20px] font-bold text-[#1b1b1d] mb-6">Database Status</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -112,7 +112,7 @@ const Settings: React.FC = () => {
 
         {/* Right Column: AI Model Info */}
         <div className="col-span-12 lg:col-span-8">
-          <div className="bg-white border border-[#c6c6cd] rounded-xl p-6 shadow-sm h-full flex flex-col">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg p-6 shadow-sm h-full flex flex-col">
             <div className="flex justify-between items-start mb-10">
               <div>
                 <h3 className="text-[20px] font-bold text-[#1b1b1d]">Mô hình AI (Inference)</h3>
@@ -122,37 +122,37 @@ const Settings: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-              <div className="p-5 bg-[#fcf8fa] rounded-xl border border-[#c6c6cd]">
+              <div className="p-5 bg-[#fcf8fa] rounded-lg border border-[#c6c6cd]">
                 <p className="text-[11px] text-[#505f76] font-black uppercase tracking-widest mb-1">Architecture</p>
-                <p className="text-[22px] font-bold text-[#1b1b1d]">Ollama Qwen 2.5</p>
+                <p className="text-[22px] font-bold text-[#1b1b1d]">Claude Sonnet 4.5</p>
                 <div className="mt-4 flex items-center gap-2">
                   <span className="material-symbols-outlined text-[18px] text-[#505f76]">memory</span>
-                  <span className="text-[13px] text-[#505f76] font-medium">Large Language Model (7B)</span>
+                  <span className="text-[13px] text-[#505f76] font-medium">via 9Router (Kiro Provider)</span>
                 </div>
               </div>
-              <div className="p-5 bg-[#fcf8fa] rounded-xl border border-[#c6c6cd]">
+              <div className="p-5 bg-[#fcf8fa] rounded-lg border border-[#c6c6cd]">
                 <p className="text-[11px] text-[#505f76] font-black uppercase tracking-widest mb-1">Primary Task</p>
                 <p className="text-[22px] font-bold text-[#1b1b1d]">AI Insights & Chat</p>
                 <div className="mt-4 flex items-center gap-2">
                   <span className="material-symbols-outlined text-[18px] text-[#505f76]">psychology</span>
-                  <span className="text-[13px] text-[#505f76] font-medium">Generative AI Engine</span>
+                  <span className="text-[13px] text-[#505f76] font-medium">Conversational AI (Free Tier)</span>
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-auto">
               {[
-                { label: 'Accuracy', val: '88.45%', up: '+1.2%' },
-                { label: 'F1-score', val: '88.45%', up: '+0.8%' },
-                { label: 'Recall', val: '87.12%', up: null },
-                { label: 'Precision', val: '89.81%', up: null }
+                { label: 'Model Size', val: '~200B', up: null },
+                { label: 'Context', val: '200K', up: null },
+                { label: 'Cost', val: '$0.00', up: 'Free' },
+                { label: 'Latency', val: '~2s', up: null }
               ].map((m, i) => (
                 <div key={i} className="text-center p-4 border-r border-[#c6c6cd] last:border-0">
                   <p className="text-[11px] font-black text-[#505f76] uppercase tracking-widest mb-2">{m.label}</p>
                   <p className="text-[24px] font-black text-[#1b1b1d]">{m.val}</p>
                   {m.up && (
                     <div className="flex items-center justify-center text-green-600 gap-1 mt-1">
-                      <span className="material-symbols-outlined text-[14px]">trending_up</span>
+                      <span className="material-symbols-outlined text-[14px]">check_circle</span>
                       <span className="text-[11px] font-black">{m.up}</span>
                     </div>
                   )}
@@ -164,9 +164,9 @@ const Settings: React.FC = () => {
 
         {/* Full Width: Crawler Configuration */}
         <div className="col-span-12">
-          <div className="bg-white border border-[#c6c6cd] rounded-xl p-6 shadow-sm">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg p-6 shadow-sm">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center text-white">
+              <div className="w-12 h-12 rounded-lg bg-black flex items-center justify-center text-white">
                 <span className="material-symbols-outlined text-[28px]">travel_explore</span>
               </div>
               <div>
@@ -179,11 +179,11 @@ const Settings: React.FC = () => {
               {/* Crawler Mode */}
               <div className="space-y-4">
                 <label className="text-[11px] font-black text-[#505f76] uppercase tracking-widest">Chế độ vận hành</label>
-                <div className="flex gap-2 p-1 bg-[#f6f3f4] rounded-xl border border-[#c6c6cd]">
+                <div className="flex gap-2 p-1 bg-[#f6f3f4] rounded-lg border border-[#c6c6cd]">
                   <button
                     onClick={() => setCrawlerMode('mock')}
                     className={clsx(
-                      "flex-1 py-3 rounded-lg flex flex-col items-center gap-0.5 transition-all",
+                      "flex-1 py-3 rounded-md flex flex-col items-center gap-0.5 transition-all",
                       crawlerMode === 'mock' ? "bg-white shadow-md text-black" : "text-[#505f76] hover:bg-white/50"
                     )}
                   >
@@ -193,7 +193,7 @@ const Settings: React.FC = () => {
                   <button
                     onClick={() => setCrawlerMode('real')}
                     className={clsx(
-                      "flex-1 py-3 rounded-lg flex flex-col items-center gap-0.5 transition-all",
+                      "flex-1 py-3 rounded-md flex flex-col items-center gap-0.5 transition-all",
                       crawlerMode === 'real' ? "bg-black text-white shadow-md" : "text-[#505f76] hover:bg-black/10"
                     )}
                   >
@@ -214,10 +214,10 @@ const Settings: React.FC = () => {
                     { name: 'TikTok Shop', status: 'In Dev', icon: 'movie', color: 'bg-pink-50 text-pink-500', active: false }
                   ].map((p, i) => (
                     <div key={i} className={clsx(
-                      "flex items-center gap-3 px-5 py-3 bg-white border border-[#c6c6cd] rounded-xl transition-all",
+                      "flex items-center gap-3 px-5 py-3 bg-white border border-[#c6c6cd] rounded-lg transition-all",
                       !p.active && "opacity-40 grayscale"
                     )}>
-                      <div className={clsx("w-10 h-10 flex items-center justify-center rounded-lg shadow-inner", p.color)}>
+                      <div className={clsx("w-10 h-10 flex items-center justify-center rounded-md shadow-inner", p.color)}>
                         <span className="material-symbols-outlined text-[24px]">{p.icon}</span>
                       </div>
                       <div>

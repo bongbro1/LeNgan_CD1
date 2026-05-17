@@ -94,7 +94,7 @@ const AnalyzeProduct: React.FC = () => {
       {/* Analysis Form Grid */}
       <section className="grid grid-cols-12 gap-6">
         <div className="col-span-12 lg:col-span-8 space-y-6">
-          <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+          <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
             <form onSubmit={handleAnalyze} className="space-y-6">
               <div>
                 <label className="block text-[12px] font-bold text-[#505f76] uppercase tracking-wider mb-2">ĐƯỜNG DẪN SẢN PHẨM (URL)</label>
@@ -147,7 +147,7 @@ const AnalyzeProduct: React.FC = () => {
 
           {/* Error Message */}
           {errorMessage && (
-            <div className="bg-red-50 border border-red-200 p-6 rounded-xl animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="bg-red-50 border border-red-200 p-6 rounded-lg animate-in fade-in slide-in-from-top-4 duration-300">
               <div className="flex items-start">
                 <span className="material-symbols-outlined text-red-600 mr-3 mt-0.5">error</span>
                 <div>
@@ -156,13 +156,13 @@ const AnalyzeProduct: React.FC = () => {
                   <div className="mt-4 flex space-x-4">
                     <button 
                       onClick={() => handleAnalyze({ preventDefault: () => {} } as any)}
-                      className="bg-red-600 text-white px-4 py-1.5 rounded-lg text-[12px] font-bold hover:bg-red-700 transition-colors"
+                      className="bg-red-600 text-white px-4 py-1.5 rounded-md text-[12px] font-bold hover:bg-red-700 transition-colors"
                     >
                       Thử lại ngay
                     </button>
                     <button 
                       onClick={() => setErrorMessage(null)}
-                      className="text-red-600 px-4 py-1.5 rounded-lg text-[12px] font-bold hover:bg-red-100 transition-colors"
+                      className="text-red-600 px-4 py-1.5 rounded-md text-[12px] font-bold hover:bg-red-100 transition-colors"
                     >
                       Đóng
                     </button>
@@ -174,7 +174,7 @@ const AnalyzeProduct: React.FC = () => {
 
           {/* Pipeline Progress */}
           {(loading || result || errorMessage) && (
-            <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+            <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
               <h3 className="text-[20px] font-bold mb-6 text-[#1b1b1d]">Tiến trình xử lý</h3>
               <div className="space-y-6">
                 {[
@@ -214,7 +214,7 @@ const AnalyzeProduct: React.FC = () => {
         {/* Result Summary Sidebar */}
         <div className="col-span-12 lg:col-span-4 h-full">
           {result ? (
-            <div className="bg-white rounded-xl border border-[#c6c6cd] shadow-sm overflow-hidden animate-in zoom-in-95 duration-500 h-full flex flex-col">
+            <div className="bg-white rounded-lg border border-[#c6c6cd] shadow-sm overflow-hidden animate-in zoom-in-95 duration-500 h-full flex flex-col">
               <div className="h-80 bg-[#e5e2e3] relative flex-shrink-0">
                 <img
                   src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80"
@@ -233,11 +233,11 @@ const AnalyzeProduct: React.FC = () => {
                     <p className="text-[12px] text-[#505f76] mt-1">ID: {result.product.id || "N/A"}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-[#f6f3f4] p-3 rounded-lg">
+                    <div className="bg-[#f6f3f4] p-3 rounded-md">
                       <p className="text-[12px] text-[#505f76]">Tổng Reviews</p>
                       <p className="text-[20px] font-bold font-mono text-[#1b1b1d]">{result.summary.total_reviews}</p>
                     </div>
-                    <div className="bg-[#f6f3f4] p-3 rounded-lg">
+                    <div className="bg-[#f6f3f4] p-3 rounded-md">
                       <p className="text-[12px] text-[#505f76]">Sentiment Score</p>
                       <div className="flex items-center">
                         <p className="text-[20px] font-bold font-mono text-green-600">{result.summary.positive_rate}</p>
@@ -270,14 +270,14 @@ const AnalyzeProduct: React.FC = () => {
                   <div className="grid grid-cols-1 gap-2">
                     <button 
                       onClick={() => navigate('/')}
-                      className="w-full bg-black text-white py-2.5 rounded-lg font-bold text-[14px] hover:opacity-90 transition-all flex items-center justify-center"
+                      className="w-full bg-black text-white py-2.5 rounded-md font-bold text-[14px] hover:opacity-90 transition-all flex items-center justify-center"
                     >
                       <span className="material-symbols-outlined mr-2 text-[20px]" data-icon="dashboard">dashboard</span>
                       Xem Dashboard
                     </button>
                     <button 
                       onClick={() => navigate('/reviews')}
-                      className="w-full border border-[#c6c6cd] py-2.5 rounded-lg font-bold text-[14px] hover:bg-[#f6f3f4] transition-all flex items-center justify-center"
+                      className="w-full border border-[#c6c6cd] py-2.5 rounded-md font-bold text-[14px] hover:bg-[#f6f3f4] transition-all flex items-center justify-center"
                     >
                       <span className="material-symbols-outlined mr-2 text-[20px]" data-icon="chat">chat</span>
                       Xem Reviews
@@ -287,7 +287,7 @@ const AnalyzeProduct: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-white p-12 rounded-xl border border-[#c6c6cd] border-dashed flex flex-col items-center justify-center text-center space-y-4 h-full">
+            <div className="bg-white p-12 rounded-lg border border-[#c6c6cd] border-dashed flex flex-col items-center justify-center text-center space-y-4 h-full">
               <span className="material-symbols-outlined text-[#76777d] text-5xl">analytics</span>
               <p className="text-[#505f76] text-[14px]">Kết quả phân tích sẽ xuất hiện tại đây sau khi hoàn tất quy trình.</p>
             </div>
@@ -301,7 +301,7 @@ const AnalyzeProduct: React.FC = () => {
           <h3 className="text-[20px] font-bold text-[#1b1b1d]">Lịch sử phân tích gần đây</h3>
           <button onClick={() => navigate('/reviews')} className="text-black font-bold text-[12px] hover:underline">Xem tất cả</button>
         </div>
-        <div className="bg-white border border-[#c6c6cd] rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-[#c6c6cd] rounded-lg overflow-hidden shadow-sm">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#f6f3f4] text-[12px] text-[#505f76] border-b border-[#c6c6cd]">
@@ -347,7 +347,7 @@ const AnalyzeProduct: React.FC = () => {
                     <td className="px-6 py-4 text-right">
                       <button 
                         onClick={(e) => handleDelete(item.id, e)}
-                        className="p-2 text-[#505f76] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-[#505f76] hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                         title="Xóa sản phẩm"
                       >
                         <span className="material-symbols-outlined text-[20px]">delete</span>

@@ -108,7 +108,7 @@ const AIInsights: React.FC = () => {
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: "### ⚠️ Lỗi kết nối AI\nKhông thể kết nối với mô hình AI (Ollama). Vui lòng đảm bảo ứng dụng Ollama đang chạy trên máy tính của bạn và cổng 11434 đã được mở.",
+        content: "### ⚠️ Lỗi kết nối AI\nKhông thể kết nối với 9Router. Vui lòng đảm bảo ứng dụng 9Router đang chạy trên máy tính của bạn và cổng 20128 đã được mở.",
         timestamp: new Date(),
         isError: true
       };
@@ -149,16 +149,16 @@ const AIInsights: React.FC = () => {
       <div className="grid grid-cols-12 gap-8 items-stretch">
         {/* Left Side: Data Assistant Panel */}
         <div className="col-span-12 lg:col-span-5 flex flex-col h-full">
-          <div className="bg-white border border-[#c6c6cd] rounded-xl shadow-sm flex-1 flex flex-col">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg shadow-sm flex-1 flex flex-col">
             {/* Chat Header */}
             <div className="p-4 border-b border-[#c6c6cd] flex items-center justify-between bg-[#fcf8fa]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-black rounded-md flex items-center justify-center">
                   <span className="material-symbols-outlined text-white text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
                 </div>
                 <div>
                   <h3 className="font-bold text-[16px] text-[#1b1b1d]">Trợ lý Phân tích</h3>
-                  <p className="text-[10px] text-[#505f76] font-bold uppercase tracking-wider">Analysis Engine Active</p>
+                  <p className="text-[10px] text-[#505f76] font-bold uppercase tracking-wider">Claude Sonnet 4.5 via 9Router</p>
                 </div>
               </div>
               <div className="relative" ref={menuRef}>
@@ -170,15 +170,15 @@ const AIInsights: React.FC = () => {
                 </button>
                 
                 {showMenu && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white/80 backdrop-blur-md border border-[#e2e2e8] rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] z-50 py-2 animate-in fade-in zoom-in-95 duration-200 origin-top-right ring-1 ring-black/5">
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white/80 backdrop-blur-md border border-[#e2e2e8] rounded-lg shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] z-50 py-2 animate-in fade-in zoom-in-95 duration-200 origin-top-right ring-1 ring-black/5">
                     <div className="px-4 py-2 border-b border-[#f1f1f4] mb-1">
                       <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest">Tùy chọn trợ lý</p>
                     </div>
                     <button 
                       onClick={handleDeleteHistory}
-                      className="w-[calc(100%-16px)] mx-2 text-left px-3 py-2.5 text-[13px] text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-3 transition-all duration-200 group"
+                      className="w-[calc(100%-16px)] mx-2 text-left px-3 py-2.5 text-[13px] text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-3 transition-all duration-200 group"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+                      <div className="w-8 h-8 rounded-md bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
                         <span className="material-symbols-outlined text-[18px] text-red-500">delete_sweep</span>
                       </div>
                       <div className="flex flex-col">
@@ -196,10 +196,10 @@ const AIInsights: React.FC = () => {
               {messages.map((msg) => (
                 <div key={msg.id} className={clsx("flex flex-col gap-2", msg.type === 'user' ? "items-end" : "items-start")}>
                   <div className={clsx(
-                    "max-w-[85%] p-4 rounded-2xl text-[14px] leading-relaxed markdown-content",
+                    "max-w-[85%] p-4 rounded-lg text-[14px] leading-relaxed markdown-content",
                     msg.type === 'user'
                       ? "bg-black text-white rounded-tr-none shadow-md"
-                      : (msg.isError 
+                      : (msg.isError
                           ? "bg-red-50 text-red-800 rounded-tl-none border border-red-200 shadow-sm"
                           : "bg-[#f6f3f4] text-[#1b1b1d] rounded-tl-none border border-[#c6c6cd]")
                   )}>
@@ -226,7 +226,7 @@ const AIInsights: React.FC = () => {
                 </div>
               ))}
               {loading && (
-                <div className="flex gap-1.5 p-4 bg-[#f6f3f4] rounded-2xl w-16">
+                <div className="flex gap-1.5 p-4 bg-[#f6f3f4] rounded-lg w-16">
                   <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce"></div>
                   <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.2s]"></div>
                   <div className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.4s]"></div>
@@ -263,13 +263,13 @@ const AIInsights: React.FC = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend(input)}
-                  className="w-full bg-white border border-[#c6c6cd] rounded-xl py-3.5 pl-4 pr-12 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none transition-all shadow-inner"
+                  className="w-full bg-white border border-[#c6c6cd] rounded-lg py-3.5 pl-4 pr-12 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none transition-all shadow-inner"
                   placeholder="Hỏi AI về xu hướng khách hàng..."
                 />
                 <button
                   onClick={() => handleSend(input)}
                   disabled={!input.trim() || loading}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black text-white w-9 h-9 rounded-lg flex items-center justify-center hover:opacity-90 transition-all active:scale-95 disabled:opacity-30"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black text-white w-9 h-9 rounded-md flex items-center justify-center hover:opacity-90 transition-all active:scale-95 disabled:opacity-30"
                 >
                   <span className="material-symbols-outlined text-[20px]">send</span>
                 </button>
@@ -281,11 +281,11 @@ const AIInsights: React.FC = () => {
         {/* Right Side: Analytical Answer Cards */}
         <div className="col-span-12 lg:col-span-7 flex flex-col gap-8 h-full">
           {/* Insight Card 1 */}
-          <div className="bg-white border border-[#c6c6cd] rounded-xl shadow-sm overflow-hidden flex flex-col flex-1">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg shadow-sm overflow-hidden flex flex-col flex-1">
             <div className="p-6 border-b border-[#c6c6cd] bg-[#fcf8fa]">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="bg-black/5 p-2.5 rounded-xl border border-[#c6c6cd]">
+                  <div className="bg-black/5 p-2.5 rounded-lg border border-[#c6c6cd]">
                     <span className="material-symbols-outlined text-black text-[28px]">troubleshoot</span>
                   </div>
                   <div>
@@ -304,13 +304,13 @@ const AIInsights: React.FC = () => {
                 <p className="text-[14px] leading-relaxed text-[#1b1b1d] font-medium">AI xác định <span className="bg-red-50 text-red-700 px-1.5 py-0.5 rounded font-black uppercase tracking-tight">{topIssue?.issue || 'Vấn đề'}</span> là nguyên nhân chính gây sụt giảm mức độ hài lòng của khách hàng.</p>
                 <div className="space-y-3">
                   <p className="text-[10px] font-black uppercase text-[#505f76] tracking-widest">Bằng chứng điển hình:</p>
-                  <div className="bg-[#fcf8fa] p-4 rounded-xl border-l-4 border-black italic text-[13px] relative shadow-sm">
+                  <div className="bg-[#fcf8fa] p-4 rounded-lg border-l-4 border-black italic text-[13px] relative shadow-sm">
                     <span className="material-symbols-outlined absolute -top-2 -left-2 text-black opacity-10 text-[32px]">format_quote</span>
                     "Tôi không hài lòng vì {topIssue?.issue.toLowerCase() || 'vấn đề phát sinh'}, mong shop sớm cải thiện quy trình."
                   </div>
                 </div>
               </div>
-              <div className="bg-[#f6f3f4] rounded-xl p-5 flex flex-col justify-between border border-[#c6c6cd]">
+              <div className="bg-[#f6f3f4] rounded-lg p-5 flex flex-col justify-between border border-[#c6c6cd]">
                 <div>
                   <h5 className="text-[11px] font-black text-[#505f76] mb-4 uppercase tracking-wider">Tác động Sentiment</h5>
                   <div className="flex items-end gap-3 mb-6">
@@ -320,14 +320,14 @@ const AIInsights: React.FC = () => {
                   <p className="text-[12px] text-[#505f76] font-medium leading-relaxed">Đề xuất: Tập trung khắc phục ngay vấn đề {topIssue?.issue.toLowerCase()} để khôi phục rating 5 sao.</p>
                 </div>
                 <div className="pt-5 border-t border-[#c6c6cd] mt-4">
-                  <button className="w-full bg-black text-white py-2.5 rounded-lg text-[13px] font-bold hover:opacity-90 transition-all shadow-md active:scale-95">Xem báo cáo chi tiết</button>
+                  <button className="w-full bg-black text-white py-2.5 rounded-md text-[13px] font-bold hover:opacity-90 transition-all shadow-md active:scale-95">Xem báo cáo chi tiết</button>
                 </div>
               </div>
             </div>
           </div>
 
 
-          <div className="bg-white border border-[#c6c6cd] rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white border border-[#c6c6cd] rounded-lg shadow-sm overflow-hidden">
             <div className="p-6 border-b border-[#c6c6cd] bg-[#fcf8fa] flex items-center gap-3">
               <div className="bg-black/5 p-2.5 rounded-xl border border-[#c6c6cd]">
                 <span className="material-symbols-outlined text-black text-[28px]">verified</span>
@@ -344,7 +344,7 @@ const AIInsights: React.FC = () => {
                   { val: '72%', label: 'Giá cạnh tranh', icon: 'payments' },
                   { val: '68%', label: 'Giao hàng nhanh', icon: 'local_shipping' }
                 ].map((m, i) => (
-                  <div key={i} className="p-4 border border-[#c6c6cd] rounded-xl bg-[#fcf8fa] shadow-sm hover:border-black transition-colors cursor-default">
+                  <div key={i} className="p-4 border border-[#c6c6cd] rounded-lg bg-[#fcf8fa] shadow-sm hover:border-black transition-colors cursor-default">
                     <div className="text-[28px] font-black text-[#1b1b1d] mb-1">{m.val}</div>
                     <div className="text-[10px] font-black text-[#505f76] uppercase flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-[14px]">{m.icon}</span>
@@ -356,8 +356,8 @@ const AIInsights: React.FC = () => {
               <div className="space-y-4">
                 <p className="text-[14px] italic text-[#505f76] leading-relaxed font-medium">"Khách hàng hiện tại đánh giá cao nhất về chất lượng hoàn thiện của sản phẩm. Sentiment Score tổng thể đạt <span className="text-black font-bold underline">{data?.summary.sentiment_score}%</span>."</p>
                 <div className="flex flex-wrap gap-2">
-                  {['#Qwen2.5', '#AI_Insights', '#BrandHealth', '#PhoBERT'].map(t => (
-                    <span key={t} className="px-2.5 py-1 bg-black text-white text-[10px] rounded-lg font-black tracking-tight">{t}</span>
+                  {['#Claude-Sonnet-4.5', '#9Router', '#BrandHealth', '#PhoBERT'].map(t => (
+                    <span key={t} className="px-2.5 py-1 bg-black text-white text-[10px] rounded-md font-black tracking-tight">{t}</span>
                   ))}
                 </div>
               </div>

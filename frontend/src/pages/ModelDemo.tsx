@@ -70,7 +70,7 @@ const ModelDemo: React.FC = () => {
 
       <div className="grid grid-cols-12 gap-8">
         {/* Prediction Panel */}
-        <div className="col-span-12 lg:col-span-7 bg-white rounded-xl border border-[#c6c6cd] shadow-sm p-6 flex flex-col  h-full">
+        <div className="col-span-12 lg:col-span-7 bg-white rounded-lg border border-[#c6c6cd] shadow-sm p-6 flex flex-col  h-full">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-[20px] font-bold text-[#1b1b1d]">Nhập đánh giá</h3>
             <span className="material-symbols-outlined text-[#76777d]" data-icon="edit_note">edit_note</span>
@@ -79,7 +79,7 @@ const ModelDemo: React.FC = () => {
           <textarea
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="w-full h-48 p-4 bg-[#f6f3f4] border border-[#c6c6cd] rounded-xl focus:ring-2 focus:ring-black outline-none text-[16px] resize-none placeholder:text-[#c6c6cd]"
+            className="w-full h-48 p-4 bg-[#f6f3f4] border border-[#c6c6cd] rounded-lg focus:ring-2 focus:ring-black outline-none text-[16px] resize-none placeholder:text-[#c6c6cd]"
             placeholder="Nhập nội dung đánh giá của khách hàng tại đây để phân tích..."
           />
 
@@ -90,7 +90,7 @@ const ModelDemo: React.FC = () => {
                 <button
                   key={i}
                   onClick={() => setInputText(ex)}
-                  className="px-4 py-2 bg-white hover:bg-[#f6f3f4] text-[#505f76] text-[14px] font-medium rounded-lg border border-[#c6c6cd] transition-all active:scale-95"
+                  className="px-4 py-2 bg-white hover:bg-[#f6f3f4] text-[#505f76] text-[14px] font-medium rounded-md border border-[#c6c6cd] transition-all active:scale-95"
                 >
                   "{ex}"
                 </button>
@@ -101,7 +101,7 @@ const ModelDemo: React.FC = () => {
           <button
             onClick={handlePredict}
             disabled={loading || !inputText.trim()}
-            className="w-full bg-black text-white py-4 rounded-xl font-bold text-[16px] hover:opacity-90 transition-all flex items-center justify-center space-x-2 mt-8 disabled:opacity-50"
+            className="w-full bg-black text-white py-4 rounded-lg font-bold text-[16px] hover:opacity-90 transition-all flex items-center justify-center space-x-2 mt-8 disabled:opacity-50"
           >
             {loading ? (
               <span className="animate-spin material-symbols-outlined" data-icon="progress_activity">progress_activity</span>
@@ -114,9 +114,9 @@ const ModelDemo: React.FC = () => {
 
         {/* Result Card */}
         <div className="col-span-12 lg:col-span-5 flex flex-col space-y-6">
-          <div className="bg-white rounded-xl border border-[#c6c6cd] shadow-sm p-6">
+          <div className="bg-white rounded-lg border border-[#c6c6cd] shadow-sm p-6">
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+              <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                 <span className="material-symbols-outlined text-red-600 mt-0.5">error</span>
                 <div>
                   <p className="text-red-800 text-[14px] font-bold">Lỗi xử lý</p>
@@ -127,7 +127,7 @@ const ModelDemo: React.FC = () => {
 
             {result ? (
               <div className="space-y-8 animate-in zoom-in-95 duration-500">
-                <div className="flex flex-col items-center justify-center py-8 bg-[#f6f3f4] rounded-xl border border-[#c6c6cd]">
+                <div className="flex flex-col items-center justify-center py-8 bg-[#f6f3f4] rounded-lg border border-[#c6c6cd]">
                   <div className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center mb-4 border border-[#c6c6cd]">
                     <span className={clsx("material-symbols-outlined text-[48px]", getSentimentColor(result.sentiment))} style={{ fontVariationSettings: "'FILL' 1" }}>
                       {getSentimentIcon(result.sentiment)}
@@ -161,7 +161,7 @@ const ModelDemo: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="h-[380px] flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-[#c6c6cd] rounded-xl">
+              <div className="h-[380px] flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-[#c6c6cd] rounded-lg">
                 <span className="material-symbols-outlined text-[48px] text-[#c6c6cd] mb-4" data-icon="psychology">psychology</span>
                 <p className="text-[#505f76] text-[14px] font-medium">Nhập văn bản và nhấn nút phân tích để xem kết quả chi tiết từ mô hình PhoBERT.</p>
               </div>
@@ -179,7 +179,7 @@ const ModelDemo: React.FC = () => {
           { icon: 'verified_user', label: 'Tỉ lệ chính xác (F1)', value: result ? result.accuracy_f1 : '0.88' }
         ].map((stat, i) => (
           <div key={i} className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm flex items-center">
-            <div className="w-12 h-12 rounded-lg bg-[#f0edee] flex items-center justify-center mr-4 text-black border border-[#c6c6cd]">
+            <div className="w-12 h-12 rounded-md bg-[#f0edee] flex items-center justify-center mr-4 text-black border border-[#c6c6cd]">
               <span className="material-symbols-outlined" data-icon={stat.icon}>{stat.icon}</span>
             </div>
             <div>

@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
       {/* ROW 1: Summary Metrics Bento Grid - EXACTLY FROM UI TEMPLATE */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
         {/* Tổng đánh giá (Large card) */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+        <div className="lg:col-span-2 bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
           <div className="flex justify-between items-start mb-4">
             <span className="text-[#505f76] font-medium text-[14px]">Tổng đánh giá</span>
             <span className="material-symbols-outlined text-[#505f76]" data-icon="forum">forum</span>
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Tích cực */}
-        <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
           <p className="text-[#505f76] text-[12px] font-bold uppercase mb-2">Tích cực</p>
           <div className="flex items-center justify-between">
             <span className="text-[24px] leading-[32px] font-bold text-green-600">{data.summary.positive}</span>
@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Trung lập */}
-        <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
           <p className="text-[#505f76] text-[12px] font-bold uppercase mb-2">Trung lập</p>
           <div className="flex items-center justify-between">
             <span className="text-[24px] leading-[32px] font-bold text-[#505f76]">{data.summary.neutral}</span>
@@ -77,7 +77,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Tiêu cực */}
-        <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
           <p className="text-[#505f76] text-[12px] font-bold uppercase mb-2">Tiêu cực</p>
           <div className="flex items-center justify-between">
             <span className="text-[24px] leading-[32px] font-bold text-[#ba1a1a]">{data.summary.negative}</span>
@@ -88,7 +88,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Rating */}
-        <div className="bg-white p-6 rounded-xl border border-[#c6c6cd] shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-[#c6c6cd] shadow-sm">
           <p className="text-[#505f76] text-[12px] font-bold uppercase mb-2">Rating</p>
           <div className="flex items-center justify-between">
             <span className="text-[24px] leading-[32px] font-bold text-[#1b1b1d]">{data.summary.average_rating}</span>
@@ -212,7 +212,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-8 bg-white rounded-xl border border-[#c6c6cd] shadow-sm overflow-hidden">
+        <div className="lg:col-span-8 bg-white rounded-lg border border-[#c6c6cd] shadow-sm overflow-hidden">
           <div className="p-6 flex justify-between items-center border-b border-[#c6c6cd]">
             <h3 className="text-[20px] font-bold text-[#1b1b1d]">Đánh giá gần đây</h3>
             <button className="text-black font-bold text-[14px] flex items-center hover:underline group">

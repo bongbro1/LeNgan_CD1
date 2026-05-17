@@ -58,7 +58,7 @@ const Reviews: React.FC = () => {
     <div className="max-w-[1600px] mx-auto space-y-8 animate-in fade-in duration-500">
 
       {/* Filters Toolbar */}
-      <div className="bg-white rounded-xl border border-[#c6c6cd] p-5 flex flex-wrap gap-6 items-center shadow-sm">
+      <div className="bg-white rounded-lg border border-[#c6c6cd] p-5 flex flex-wrap gap-6 items-center shadow-sm">
         <div className="flex flex-col gap-1.5 flex-1 min-w-[200px]">
           <label className="text-[12px] font-bold text-[#505f76] px-1 uppercase tracking-wider">Tìm kiếm</label>
           <div className="relative">
@@ -68,7 +68,7 @@ const Reviews: React.FC = () => {
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value, page: 1 })}
               placeholder="Tìm kiếm trong đánh giá..."
-              className="w-full bg-[#f6f3f4] border border-[#c6c6cd] rounded-lg pl-10 pr-4 py-2 text-[14px] focus:ring-2 focus:ring-black outline-none transition-all"
+              className="w-full bg-[#f6f3f4] border border-[#c6c6cd] rounded-md pl-10 pr-4 py-2 text-[14px] focus:ring-2 focus:ring-black outline-none transition-all"
             />
           </div>
         </div>
@@ -78,7 +78,7 @@ const Reviews: React.FC = () => {
           <select
             value={filters.sentiment}
             onChange={(e) => setFilters({ ...filters, sentiment: e.target.value, page: 1 })}
-            className="bg-white border border-[#c6c6cd] rounded-lg px-4 py-2 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none min-w-[150px]"
+            className="bg-white border border-[#c6c6cd] rounded-md px-4 py-2 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none min-w-[150px]"
           >
             <option value="">Tất cả cảm xúc</option>
             <option value="positive">Tích cực</option>
@@ -108,7 +108,7 @@ const Reviews: React.FC = () => {
           <select
             value={filters.platform}
             onChange={(e) => setFilters({ ...filters, platform: e.target.value, page: 1 })}
-            className="bg-white border border-[#c6c6cd] rounded-lg px-4 py-2 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none min-w-[150px]"
+            className="bg-white border border-[#c6c6cd] rounded-md px-4 py-2 text-[14px] font-medium focus:ring-2 focus:ring-black outline-none min-w-[150px]"
           >
             <option value="">Tất cả sàn</option>
             <option value="shopee">Shopee</option>
@@ -129,7 +129,7 @@ const Reviews: React.FC = () => {
       </div>
 
       {/* Reviews Table Container */}
-      <div className="bg-white rounded-xl border border-[#c6c6cd] shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-white rounded-lg border border-[#c6c6cd] shadow-sm overflow-hidden flex flex-col">
         <div className="overflow-x-auto min-h-[600px] relative">
           {loading && (
             <div className="absolute top-0 left-0 right-0 h-1 bg-black/10 overflow-hidden z-20">
@@ -159,7 +159,7 @@ const Reviews: React.FC = () => {
                   <tr key={rev.id} className="hover:bg-[#fcf8fa] transition-colors group">
                     <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="w-9 h-9 rounded-lg bg-black text-white flex items-center justify-center font-bold text-[13px] shadow-sm">
+                        <div className="w-9 h-9 rounded-md bg-black text-white flex items-center justify-center font-bold text-[13px] shadow-sm">
                           {rev.author?.charAt(0) || 'U'}
                         </div>
                         <div className="ml-3">
@@ -218,7 +218,7 @@ const Reviews: React.FC = () => {
               <button
                 disabled={filters.page === 1}
                 onClick={() => setFilters({ ...filters, page: filters.page - 1 })}
-                className="w-8 h-8 flex items-center justify-center rounded-lg border border-[#c6c6cd] text-[#505f76] hover:bg-white hover:text-black hover:border-black transition-all disabled:opacity-30 disabled:pointer-events-none"
+                className="w-8 h-8 flex items-center justify-center rounded-md border border-[#c6c6cd] text-[#505f76] hover:bg-white hover:text-black hover:border-black transition-all disabled:opacity-30 disabled:pointer-events-none"
               >
                 <span className="material-symbols-outlined text-[18px]">chevron_left</span>
               </button>
@@ -264,7 +264,7 @@ const Reviews: React.FC = () => {
               <button
                 disabled={filters.page === totalPages}
                 onClick={() => setFilters({ ...filters, page: filters.page + 1 })}
-                className="w-8 h-8 flex items-center justify-center rounded-lg border border-[#c6c6cd] text-[#505f76] hover:bg-white hover:text-black hover:border-black transition-all disabled:opacity-30 disabled:pointer-events-none"
+                className="w-8 h-8 flex items-center justify-center rounded-md border border-[#c6c6cd] text-[#505f76] hover:bg-white hover:text-black hover:border-black transition-all disabled:opacity-30 disabled:pointer-events-none"
               >
                 <span className="material-symbols-outlined text-[18px]">chevron_right</span>
               </button>

@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ title, onMenuClick }) => {
       <div className="flex items-center space-x-gutter">
         <button
           onClick={onMenuClick}
-          className="p-2 -ml-2 text-secondary hover:bg-surface-container-high rounded-lg lg:hidden"
+          className="p-2 -ml-2 text-secondary hover:bg-surface-container-high rounded-md lg:hidden"
         >
           <span className="material-symbols-outlined" data-icon="menu">menu</span>
         </button>

@@ -31,10 +31,10 @@ def chat_with_data():
     # Chuẩn bị ngữ cảnh cho AI (Tăng lên 25 review để tra cứu tốt hơn)
     reviews_context = "\n".join([f"- [{r.sentiment}] {r.content}" for r in reviews[:25]])
     
-    # 2. Gọi API Ollama (Sử dụng /api/chat để có trí nhớ tốt hơn)
+    # 2. Gọi API 9Router (sử dụng kr/claude-sonnet-4.5)
     try:
-        ollama_url = "http://localhost:11434/api/chat"
-        
+        nine_router_url = "http://localhost:20128/v1/chat/completions"
+
         # Tạo System message với chỉ dẫn gắn chặt dữ liệu
         system_content = f"""Bạn là Aura - Trợ lý AI Phân tích dữ liệu.
 DƯỚI ĐÂY LÀ DỮ LIỆU TRONG HỆ THỐNG CỦA NGƯỜI DÙNG (BẠN PHẢI SỬ DỤNG NÓ):
@@ -49,43 +49,41 @@ QUY TẮC HÀNH VI:
 3. LINH HOẠT NHƯNG CHÍNH XÁC: Bạn vẫn có thể tán gẫu về giá vàng hay xã hội, nhưng nếu câu hỏi liên quan đến sản phẩm/hệ thống, dữ liệu trên là nguồn duy nhất và chính xác nhất.
 4. ĐỊNH DANH: Khi người dùng nói "trong hệ thống của tôi", họ đang nói về dữ liệu bạn đang nắm giữ ở trên.
 """
-        
-        # Xây dựng mảng messages bao gồm lịch sử
-        messages_for_ollama = [{"role": "system", "content": system_content}]
-        
+
+        # Xây dựng mảng messages bao gồm lịch sử (OpenAI format)
+        messages_for_ai = [{"role": "system", "content": system_content}]
+
         # Thêm lịch sử chat vào (giới hạn 6 câu gần nhất để tránh quá tải token)
         for h in history[-6:]:
             role = "user" if h['type'] == 'user' else "assistant"
-            messages_for_ollama.append({"role": role, "content": h['content']})
-        
+            messages_for_ai.append({"role": role, "content": h['content']})
+
         # Thêm câu hỏi hiện tại nếu chưa có trong history
         if not history or history[-1]['content'] != message:
-            messages_for_ollama.append({"role": "user", "content": message})
+            messages_for_ai.append({"role": "user", "content": message})
 
         payload = {
-            "model": "qwen2.5:3b",
-            "messages": messages_for_ollama,
+            "model": "kr/claude-sonnet-4.5",
+            "messages": messages_for_ai,
             "stream": False,
-            "options": {
-                "temperature": 0.8,
-                "num_predict": 1024
-            }
+            "temperature": 0.7,
+            "max_tokens": 2000
         }
-        
-        print(f"DEBUG: Calling Ollama Chat API")
-        response = requests.post(ollama_url, json=payload, timeout=60)
-        
+
+        print(f"DEBUG: Calling 9Router API with model kr/claude-sonnet-4.5")
+        response = requests.post(nine_router_url, json=payload, timeout=60)
+
         if response.status_code == 200:
             result = response.json()
-            answer = result.get('message', {}).get('content', 'Xin lỗi, tôi gặp lỗi khi xử lý câu trả lời.')
+            answer = result.get('choices', [{}])[0].get('message', {}).get('content', 'Xin lỗi, tôi gặp lỗi khi xử lý câu trả lời.')
         else:
-            answer = f"Ollama Error (HTTP {response.status_code})."
-            
+            answer = f"9Router Error (HTTP {response.status_code})."
+
     except requests.exceptions.ConnectionError:
-        print("DEBUG: Connection Error - Is Ollama running?")
-        answer = "Không thể kết nối tới Ollama. Hãy đảm bảo bạn đã chạy 'ollama serve' và cổng 11434 đang mở."
+        print("DEBUG: Connection Error - Is 9Router running?")
+        answer = "Không thể kết nối tới 9Router. Hãy đảm bảo bạn đã chạy '9router' và cổng 20128 đang mở."
     except Exception as e:
-        print(f"DEBUG: Unexpected Ollama Error: {type(e).__name__} - {str(e)}")
+        print(f"DEBUG: Unexpected 9Router Error: {type(e).__name__} - {str(e)}")
         answer = f"Lỗi hệ thống khi gọi AI: {str(e)}."
 
     # 3. Lấy nguồn tham khảo thực tế (Sources)
