@@ -1,3 +1,16 @@
+import sys
+import os
+
+# Fix Windows console encoding (cp1252 -> utf-8) to support Vietnamese text
+# Use reconfigure() to modify in-place (TextIOWrapper closes the fd and breaks Flask/Click)
+os.environ['PYTHONUTF8'] = '1'
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 from flask import Flask
 from flask_cors import CORS
 from routes.dashboard import dashboard_bp
@@ -31,4 +44,6 @@ def health_check():
     return {"status": "ok", "message": "Server is running"}
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # use_reloader=False: Tắt watchdog reloader để tránh restart server khi Playwright chạy
+    # (Watchdog theo dõi cả thư mục Python system, gây restart giữa request → ERR_CONNECTION_RESET)
+    app.run(debug=True, port=5000, use_reloader=False)

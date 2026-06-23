@@ -30,7 +30,7 @@ def analyze_product():
     # BƯỚC 1: KIỂM TRA CACHE TRONG DB
     existing_product = Product.query.filter_by(url=url).first()
     if existing_product:
-        print(f"--- Tìm thấy dữ liệu Cache cho URL: {url} ---")
+        print(f"--- Found cached data for URL: {url} ---")
         reviews = [r.to_dict() for r in existing_product.reviews]
         summary = SentimentService.get_summary(reviews)
         

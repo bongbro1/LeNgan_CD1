@@ -1,5 +1,14 @@
 import asyncio
 import re
+import sys
+
+# Fix Windows console encoding for Vietnamese text
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 from playwright.async_api import async_playwright
 
 class CrawlerService:
@@ -13,7 +22,7 @@ class CrawlerService:
 
     @staticmethod
     async def crawl_tiki(url, max_reviews=200):
-        print(f"DEBUG: --- QUÉT TIKI TOÀN BỘ ---")
+        print("DEBUG: --- CRAWL TIKI ---")
         reviews = []
         error_msg = None
         async with async_playwright() as p:
@@ -23,19 +32,23 @@ class CrawlerService:
 
             try:
                 await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-                await page.mouse.wheel(0, 2500)
-                await asyncio.sleep(2)
                 
-                try:
-                    await page.wait_for_selector(".customer-reviews__inner", timeout=10000)
-                except:
+                # Cuộn trang từ từ xuống để trigger lazy load
+                for i in range(10):
                     await page.mouse.wheel(0, 1000)
-                    await asyncio.sleep(2)
-
+                    await asyncio.sleep(1)
+                    
+                    # Kiểm tra xem review đã hiện ra chưa
+                    try:
+                        if await page.query_selector(".review-comment"):
+                            break
+                    except:
+                        pass
+                
                 page_count = 1
                 while True:
                     try:
-                        await page.wait_for_selector(".review-comment", timeout=5000)
+                        await page.wait_for_selector(".review-comment", timeout=10000)
                     except:
                         if page_count == 1: error_msg = "Không tìm thấy đánh giá nào trên Tiki."
                         break
@@ -69,7 +82,7 @@ class CrawlerService:
 
     @staticmethod
     async def crawl_lazada(url, max_reviews=200):
-        print(f"DEBUG: --- QUÉT LAZADA STEALTH ---")
+        print("DEBUG: --- CRAWL LAZADA ---")
         reviews = []
         error_msg = None
         async with async_playwright() as p:
@@ -157,7 +170,7 @@ class CrawlerService:
 
     @staticmethod
     async def crawl_shopee(url, max_reviews=200):
-        print(f"DEBUG: --- QUÉT SHOPEE STEALTH ---")
+        print("DEBUG: --- CRAWL SHOPEE ---")
         reviews = []
         error_msg = None
         async with async_playwright() as p:
@@ -237,27 +250,40 @@ class CrawlerService:
     @classmethod
     async def analyze_url(cls, url, platform='auto'):
         results = {"name": "Sản phẩm", "reviews": [], "error": None}
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(channel="msedge", headless=True)
-            context = await browser.new_context(
-                viewport={'width': 1366, 'height': 800},
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-            )
-            page = await context.new_page()
-            try:
-                await page.goto(url, wait_until="domcontentloaded", timeout=60000)
-                page_title = await page.title()
-                results["name"] = page_title.split('|')[0].strip()
-                await browser.close()
 
-                if 'tiki.vn' in url or platform == 'tiki':
-                    results["reviews"], results["error"] = await cls.crawl_tiki(url)
-                elif 'lazada.vn' in url or platform == 'lazada':
-                    results["reviews"], results["error"] = await cls.crawl_lazada(url)
-                elif 'shopee.vn' in url or platform == 'shopee':
-                    results["reviews"], results["error"] = await cls.crawl_shopee(url)
-            except Exception as e:
-                results["error"] = f"Lỗi: {str(e)}"
-            finally:
-                if browser: await browser.close()
+        # Bước 1: Mở browser riêng để lấy tên sản phẩm, rồi đóng ngay
+        try:
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(channel="msedge", headless=True)
+                context = await browser.new_context(
+                    viewport={'width': 1366, 'height': 800},
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+                )
+                page = await context.new_page()
+                try:
+                    await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                    page_title = await page.title()
+                    results["name"] = page_title.split('|')[0].strip()
+                except Exception as e:
+                    print(f"Could not get product name: {e}")
+                finally:
+                    await browser.close()
+        except Exception as e:
+            print(f"Error getting product name: {e}")
+
+        # Bước 2: Gọi crawler tương ứng (mỗi crawler tự mở/đóng browser riêng)
+        try:
+            if 'tiki.vn' in url or platform == 'tiki':
+                results["reviews"], results["error"] = await cls.crawl_tiki(url)
+            elif 'lazada.vn' in url or platform == 'lazada':
+                results["reviews"], results["error"] = await cls.crawl_lazada(url)
+            elif 'shopee.vn' in url or platform == 'shopee':
+                results["reviews"], results["error"] = await cls.crawl_shopee(url)
+            else:
+                results["error"] = "Không nhận diện được nền tảng. Hỗ trợ: Tiki, Lazada, Shopee."
+        except Exception as e:
+            import traceback
+            tb = traceback.format_exc()
+            results["error"] = f"Lỗi crawl: {str(e)}\n\nTraceback: {tb}"
+
         return results
